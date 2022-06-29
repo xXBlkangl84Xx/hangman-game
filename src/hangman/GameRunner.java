@@ -1,16 +1,10 @@
 package hangman;
 
-/**
- * A simple game runner for a one person 
- * versus a computer game.
- * 
- * @author steve.maniak
- */
+
 public class GameRunner {
 
-	private Game game;
+	private final Game game;
 	
-
 	/**
 	 * This main method constructs a GameRunner instance and
 	 * plays the registered game.
@@ -37,7 +31,7 @@ public class GameRunner {
 	
 	
 	/**
-	 * One the runner has been initialized with a HangmanGame 
+	 * Once the runner has been initialized with a HangmanGame 
 	 * (an implementation of the interface) we can run against the 
 	 * interface.
 	 */

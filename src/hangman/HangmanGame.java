@@ -7,7 +7,7 @@ public class HangmanGame implements Game {
 
 	Scanner playerInput = new Scanner(System.in);
 
-	private static String[] words = { "geography", "superman", "yesterday", "java", "truck", "opportunity", "fish",
+	private static final String[] words = { "geography", "superman", "yesterday", "java", "truck", "opportunity", "fish",
 			"token", "transportation", "bottom", "zamboni", "cake", "remote", "pocket", "terminology", "arm",
 			"cranberry", "tool", "caterpillar", "spoon", "watermelon", "laptop", "programming", "toad", "fundamental",
 			"capitol", "garbage", "anticipate", "apples" };
@@ -26,7 +26,8 @@ public class HangmanGame implements Game {
 	}
 	
 	private void printHangman(int badGuesses) {
-		int poleLines = 6;  
+		int poleLines = 6;
+		System.out.println("");
 		System.out.println("  ____");
 		System.out.println("  |  |");
 		
@@ -69,24 +70,13 @@ public class HangmanGame implements Game {
 
 	
 	public void initializeProgram() {	
-		
-		
-		//Gallows.gallows();
+
 		
 		
 	}
-	
-
-
-
-
 
 	public class Bruce {
-		
-//		public static void main(String[] args) {
-//			drawBruce();
-//		}
-		
+
 		public static void drawBruce() {
 			System.out.println("   ___  ");
 			System.out.println(" / . . \\");
@@ -101,9 +91,6 @@ public class HangmanGame implements Game {
 			System.out.println("  /   \\ ");
 			System.out.println("_/     \\_ ");		
 		}
-
-	
-
 
 }
 
@@ -120,13 +107,14 @@ public class HangmanGame implements Game {
 	}
 
 	public void initializeGame() {
-//		Gallows.gallows();
 		Random randIndex = new Random();
 		int index = randIndex.nextInt(HangmanGame.words.length);
+		// Select a random word from words list
 		correctWord = HangmanGame.words[index];
+		// Split correct word and place in a list
 		String[] correctWordArray = correctWord.split("");
 		
-		ArrayList<String> correctWordList = new ArrayList<String>(); 
+		ArrayList<String> correctWordList = new ArrayList<String>();
 		for(int i = 0; i < correctWordArray.length;i++) {
 			correctWordList.add(correctWordArray[i]);
 		}
@@ -153,25 +141,17 @@ public class HangmanGame implements Game {
 	
 	
 	public boolean computerMove() {
-//		boolean result = false;
-				
-//		if (userGuess != correctWord) {
-//			badGuesses++;
-//			System.out.print("Nope!");
-//			printHangman(badGuesses);
-//		}
-//		System.out.print("Bruce isn't doing too hot. You have " + (6-badGuesses) + " guesses left!");
-		
+
 		return false;
 	}
 
 	public boolean userMove() {
 		boolean result = false;
 		printHangman(badGuesses);
-		System.out.println(shuffledWord(HangmanGame.correctWordList));		
+		System.out.println(correctWord);
 		System.out.print("What is the word? ");
 		String userGuess = playerInput.nextLine();
-		if (userGuess == correctWord) {
+		if (Objects.equals(userGuess, correctWord)) {
 			System.out.println("That's it! Nice job!");
 			result = true;	
 		}else{
@@ -188,6 +168,7 @@ public class HangmanGame implements Game {
 	public boolean playAgain() {
 		System.out.println("Would you like to play again? Enter 1 for yes or 0 for no. ");
 		boolean response = playerInput.hasNext();
+
 		return response;
 	}
 

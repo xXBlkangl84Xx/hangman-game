@@ -3,9 +3,8 @@ package hangman;
 /**
  * A simple game interface for a one person 
  * versus a computer game.
- * 
- * @author steve.maniak
  */
+
 public interface Game {
 
 	/** 
