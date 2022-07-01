@@ -7,22 +7,12 @@ public class HangmanGame implements Game {
             "token", "transportation", "bottom", "zamboni", "cake", "remote", "pocket", "terminology", "arm",
             "cranberry", "tool", "caterpillar", "spoon", "watermelon", "laptop", "programming", "toad", "fundamental",
             "capitol", "garbage", "anticipate", "apples"};
-    public static List<String> correctWordList;
     private static String correctWord;
     private static int badGuesses;
     Scanner playerInput = new Scanner(System.in);
 
-    private static List<String> shuffledWord(List<String> correctWordList) {
-
-        for (int i = 0; i < correctWordList.size(); i++) {
-            System.out.print(correctWordList.get(i));
-        }
-        return correctWordList;
-    }
-
     private void printHangman(int badGuesses) {
         int poleLines = 6;
-        System.out.println();
         System.out.println("  ____");
         System.out.println("  |  |");
 
@@ -82,16 +72,6 @@ public class HangmanGame implements Game {
         int index = randIndex.nextInt(HangmanGame.words.length);
         // Select a random word from words list
         correctWord = HangmanGame.words[index];
-        // Split correct word and place in a list
-        String[] correctWordArray = correctWord.split("");
-
-        ArrayList<String> correctWordList = new ArrayList<String>();
-        for (int i = 0; i < correctWordArray.length; i++) {
-            correctWordList.add(correctWordArray[i]);
-        }
-
-        Collections.shuffle(correctWordList);
-
     }
 
     public char whoMovesFirst() {
@@ -117,17 +97,32 @@ public class HangmanGame implements Game {
     public boolean userMove() {
         boolean result = false;
         printHangman(badGuesses);
-        System.out.println(correctWord);
+        //System.out.println(correctWord);
         System.out.print("What is the word? ");
         String userGuess = playerInput.nextLine();
+        String[] splitGuess = userGuess.split("");
+        String[] splitWord = correctWord.split("");
+        List<String> correctlyGuessedLetters = new ArrayList<>();
         if (Objects.equals(userGuess, correctWord)) {
             System.out.println("That's it! Nice job!");
             result = true;
         } else {
             badGuesses++;
             System.out.print("Nope!");
+            for (int i = 0; i < splitGuess.length; i++) {
+                boolean existsInWord = Arrays.asList(splitWord).contains(splitGuess[i]);
+                boolean existsInGuesses = Arrays.asList(correctlyGuessedLetters).contains(splitGuess[i]);
+                if(existsInWord){
+                    if(existsInGuesses){
+                        continue;
+                    }else{
+                        correctlyGuessedLetters.add(splitGuess[i]);
+                    }
+                }
+            }
             printHangman(badGuesses);
-            System.out.print("Bruce isn't doing too hot. You have " + (6 - badGuesses) + " guesses left!");
+            System.out.println("Bruce isn't doing too hot. You have " + (6 - badGuesses) + " guesses left!");
+            System.out.println("Correctly guessed letters: " + correctlyGuessedLetters);
         }
 
         return result;
@@ -135,7 +130,13 @@ public class HangmanGame implements Game {
 
     public boolean playAgain() {
         System.out.println("Would you like to play again? Enter 1 for yes or 0 for no. ");
-        boolean response = playerInput.hasNext();
+        int decision = playerInput.nextInt();
+        boolean response = false;
+        if(decision == 0){
+            response = false;
+        } else if (decision == 1) {
+            response = true;
+        }
 
         return response;
     }
