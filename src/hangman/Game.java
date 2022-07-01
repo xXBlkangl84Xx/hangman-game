@@ -12,22 +12,13 @@ public interface Game {
 	 */
 	void initializeProgram();
 
-	/**
-	 * Usually games start with a "Greetings" page.  It could also have brief instructions 
-	 * on how to play.
-	 */
+
 	void greetings();
 
-	/** 
-	 * Any game startup and initialization are done here. 
-	 * Might also be an initial board.
-	 */
+
 	void initializeGame();
 	
-	/**
-	 * Who gets the first move?  The "C"omputer or "U"ser?
-	 * @return a 'C' or 'U'
-	 */
+
 	char whoMovesFirst();
 	
 	/**
